@@ -1,0 +1,10 @@
+Pinduoduo:
+
+            user_data_dir=self.user_data,
+            headless=self.headless,
+            user_agent=iphone["user_agent"],
+            viewport=iphone["viewport"],
+            device_scale_factor=iphone["device_scale_factor"],
+            is_mobile=iphone["is_mobile"],
+            has_touch=iphone["has_touch"],
+            locale="zh-CN"
