@@ -13,6 +13,7 @@ class ParsingSite:
         self.price = None
         self.skin_status = None
         self.offers = None
+        self.all_offers = None
 
     def get_html(self):
         
@@ -90,8 +91,14 @@ class ParsingSite:
                 self.offers["WW"] = self.offers_count
             elif "Закалённое в боях" in offers_title.get_text(strip=True):
                 self.offers["BS"] = self.offers_count
-
+            
             print(green(f"[ script ] {offers_title}"))
+            
+        all = soup.find("div", class_="block-name")
+
+        if all:
+            self.all_offers = all.get_text(strip=True)
+            print(green(f"[ script ] {all}"))
 
 
         
