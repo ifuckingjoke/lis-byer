@@ -1,34 +1,46 @@
-from src.excel_byer.browser import Browser
-from src.excel_byer.parse import Parsing
-from trgb import red, yellow
-from src.excel_byer.gen_excel import Tables
-from src.excel_byer.core import get_url
+from src.lis_byer.browser import Browser
+from src.lis_byer.parse import ParsingSite
+from trgb import yellow
+from src.lis_byer.gen_excel import Tables
+from pathlib import Path
 
+class Main:
 
-if __name__ == "__main__":
-    try:
-        browser = Browser(headless=False)
-        browser.start()
+    def main(self):
+
+        base_dir = Path(__file__).resolve().parent
+        file_path = base_dir / "data" / "data.txt"
 
         table = Tables()
+        
+        with open(file_path, "r", encoding="utf-8") as file:
+            for line in file:
+                url = str(line)
 
-        url = get_url()
+                browser  = Browser(headless=True)
 
-        browser.open(url)
+                browser.start()
+                browser.open(url)
 
-        parser = Parsing(browser.page)
+                parser = ParsingSite(browser.page)
 
-        parser.get_html()
-        parser.get_info()
+                parser.get_html()
+                parser.get_info(url)
 
-        table.add_row(parser.name, parser.price, 
-                      parser.offers["factory_new"], parser.offers["minimal_wear"], 
-                      parser.offers["field_tested"], parser.offers["well_worn"], parser.offers["battle_scarred"],
-                      link=url
-                    )
-        table_name = input(yellow("[ script ] Название новой таблицы:"))
+
+                if parser.offers:
+                    table.add_row(parser.name, parser.price, 
+                        parser.offers["FN"], parser.offers["MW"], 
+                        parser.offers["FT"], parser.offers["WW"], parser.offers["BS"], skin_status=parser.skin_status,
+                        link=url
+                        )
+                
+                browser.close()
+                
+        table_name = input(yellow("[ script ] Название новой таблицы: "))
         table.save(f"books/{ table_name }.xlsx")
 
-        browser.close()
-    except KeyboardInterrupt:
-        print("STOPPED")
+if __name__ == "__main__":
+    sesion = Main()
+
+    sesion.main()
