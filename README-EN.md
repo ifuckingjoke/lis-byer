@@ -8,7 +8,7 @@
 ![GitHub Tag](https://img.shields.io/github/v/tag/ifuckingjoke/lis-byer)
 ![GitHub stars](https://img.shields.io/github/stars/ifuckingjoke/lis-byer?style=social)
 
- ## 🌐 Language: [Russian](README.md) | 🌐 Language: [English](README-EN.md)
+ ## 🌐 Язык: [Russian](README.md) | 🌐 Language: [English](README-EN.md)
 
 ⚠️ Warning: lis-byer does not collect information about your browsers, cookies, or sessions. The script uses pre-installed browsers for Playwright, automatically creating a new session upon startup.
 
